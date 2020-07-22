@@ -1,3 +1,4 @@
 .idea/
 springboot-mybatis-blog.iml
 target/
+log/
