@@ -1,0 +1,89 @@
+2020-07-14 00:28:08.682  INFO 23180 --- [http-nio-8080-exec-8] com.baoge.aspect.LogAspect               : Request : {url='http://localhost:8080/', ip='0:0:0:0:0:0:0:1', classMethod='com.baoge.controller.IndexController.index', args=[{}, 1, {}]}
+2020-07-14 00:28:08.709 DEBUG 23180 --- [http-nio-8080-exec-8] c.b.d.B.getAllFirstPageBlog_COUNT        : ==>  Preparing: SELECT count(0) FROM myblog.t_blog b, myblog.t_type t, myblog.t_user u WHERE b.type_id = t.id AND u.id = b.user_id
+2020-07-14 00:28:08.710 DEBUG 23180 --- [http-nio-8080-exec-8] c.b.d.B.getAllFirstPageBlog_COUNT        : ==> Parameters: 
+2020-07-14 00:28:08.740 DEBUG 23180 --- [http-nio-8080-exec-8] c.b.d.B.getAllFirstPageBlog_COUNT        : <==      Total: 1
+2020-07-14 00:28:08.741 DEBUG 23180 --- [http-nio-8080-exec-8] c.b.dao.BlogMapper.getAllFirstPageBlog   : ==>  Preparing: select b.id as bid,b.title,b.first_picture, b.views, b.comment_count,b.update_time,b.description, t.name , t.id as tid, u.nickname, u.avatar,u.id as uid from myblog.t_blog b, myblog.t_type t,myblog.t_user u where b.type_id = t.id and u.id = b.user_id order by b.update_time desc LIMIT ?
+2020-07-14 00:28:08.741 DEBUG 23180 --- [http-nio-8080-exec-8] c.b.dao.BlogMapper.getAllFirstPageBlog   : ==> Parameters: 8(Integer)
+2020-07-14 00:28:08.755 DEBUG 23180 --- [http-nio-8080-exec-8] c.b.dao.BlogMapper.getAllFirstPageBlog   : <==      Total: 8
+2020-07-14 00:28:08.755 DEBUG 23180 --- [http-nio-8080-exec-8] c.b.dao.BlogMapper.getAllRecommendBlog   : ==>  Preparing: select id,title,recommend ,first_picture from myblog.t_blog where t_blog.recommend = true order by t_blog.update_time desc limit 8;
+2020-07-14 00:28:08.756 DEBUG 23180 --- [http-nio-8080-exec-8] c.b.dao.BlogMapper.getAllRecommendBlog   : ==> Parameters: 
+2020-07-14 00:28:08.757 DEBUG 23180 --- [http-nio-8080-exec-8] c.b.dao.BlogMapper.getAllRecommendBlog   : <==      Total: 8
+2020-07-14 00:28:08.758 DEBUG 23180 --- [http-nio-8080-exec-8] com.baoge.dao.TypeMapper.listTypeTop     : ==>  Preparing: select t.id as id,t.name as name ,tb.id as bid,tb.title as title,tb.type_id as type_id from t_type t left join t_blog tb on t.id=tb.type_id
+2020-07-14 00:28:08.758 DEBUG 23180 --- [http-nio-8080-exec-8] com.baoge.dao.TypeMapper.listTypeTop     : ==> Parameters: 
+2020-07-14 00:28:08.759 DEBUG 23180 --- [http-nio-8080-exec-8] com.baoge.dao.TypeMapper.listTypeTop     : <==      Total: 11
+2020-07-14 00:28:08.759 DEBUG 23180 --- [http-nio-8080-exec-8] com.baoge.dao.TagMapper.listTagTop       : ==>  Preparing: select t.id as tid,t.name as tname,b.id as bid,b.title as title from t_tag t left join t_blog_tags bt on t.id= bt.tags_id left join t_blog b on bt.blogs_id = b.id
+2020-07-14 00:28:08.759 DEBUG 23180 --- [http-nio-8080-exec-8] com.baoge.dao.TagMapper.listTagTop       : ==> Parameters: 
+2020-07-14 00:28:08.761 DEBUG 23180 --- [http-nio-8080-exec-8] com.baoge.dao.TagMapper.listTagTop       : <==      Total: 29
+2020-07-14 00:28:08.761  INFO 23180 --- [http-nio-8080-exec-8] com.baoge.aspect.LogAspect               : Result : index
+2020-07-14 00:28:09.181  INFO 23180 --- [http-nio-8080-exec-2] com.baoge.aspect.LogAspect               : Request : {url='http://localhost:8080/footer/newblog', ip='0:0:0:0:0:0:0:1', classMethod='com.baoge.controller.IndexController.newblogs', args=[{}]}
+2020-07-14 00:28:09.182 DEBUG 23180 --- [http-nio-8080-exec-2] com.baoge.dao.BlogMapper.getNewBlog      : ==>  Preparing: select * from myblog.t_blog order by t_blog.update_time desc limit 3;
+2020-07-14 00:28:09.182 DEBUG 23180 --- [http-nio-8080-exec-2] com.baoge.dao.BlogMapper.getNewBlog      : ==> Parameters: 
+2020-07-14 00:28:09.183 DEBUG 23180 --- [http-nio-8080-exec-2] com.baoge.dao.BlogMapper.getNewBlog      : <==      Total: 3
+2020-07-14 00:28:09.183  INFO 23180 --- [http-nio-8080-exec-2] com.baoge.aspect.LogAspect               : Result : _fragments :: newblogList
+2020-07-14 00:42:36.470  INFO 23180 --- [http-nio-8080-exec-4] com.baoge.aspect.LogAspect               : Request : {url='http://localhost:8080/', ip='0:0:0:0:0:0:0:1', classMethod='com.baoge.controller.IndexController.index', args=[{}, 1, {}]}
+2020-07-14 00:42:36.474 DEBUG 23180 --- [http-nio-8080-exec-4] c.b.d.B.getAllFirstPageBlog_COUNT        : ==>  Preparing: SELECT count(0) FROM myblog.t_blog b, myblog.t_type t, myblog.t_user u WHERE b.type_id = t.id AND u.id = b.user_id
+2020-07-14 00:42:36.474 DEBUG 23180 --- [http-nio-8080-exec-4] c.b.d.B.getAllFirstPageBlog_COUNT        : ==> Parameters: 
+2020-07-14 00:42:36.475 DEBUG 23180 --- [http-nio-8080-exec-4] c.b.d.B.getAllFirstPageBlog_COUNT        : <==      Total: 1
+2020-07-14 00:42:36.476 DEBUG 23180 --- [http-nio-8080-exec-4] c.b.dao.BlogMapper.getAllFirstPageBlog   : ==>  Preparing: select b.id as bid,b.title,b.first_picture, b.views, b.comment_count,b.update_time,b.description, t.name , t.id as tid, u.nickname, u.avatar,u.id as uid from myblog.t_blog b, myblog.t_type t,myblog.t_user u where b.type_id = t.id and u.id = b.user_id order by b.update_time desc LIMIT ?
+2020-07-14 00:42:36.476 DEBUG 23180 --- [http-nio-8080-exec-4] c.b.dao.BlogMapper.getAllFirstPageBlog   : ==> Parameters: 8(Integer)
+2020-07-14 00:42:36.478 DEBUG 23180 --- [http-nio-8080-exec-4] c.b.dao.BlogMapper.getAllFirstPageBlog   : <==      Total: 8
+2020-07-14 00:42:36.479 DEBUG 23180 --- [http-nio-8080-exec-4] c.b.dao.BlogMapper.getAllRecommendBlog   : ==>  Preparing: select id,title,recommend ,first_picture from myblog.t_blog where t_blog.recommend = true order by t_blog.update_time desc limit 8;
+2020-07-14 00:42:36.479 DEBUG 23180 --- [http-nio-8080-exec-4] c.b.dao.BlogMapper.getAllRecommendBlog   : ==> Parameters: 
+2020-07-14 00:42:36.480 DEBUG 23180 --- [http-nio-8080-exec-4] c.b.dao.BlogMapper.getAllRecommendBlog   : <==      Total: 8
+2020-07-14 00:42:36.480 DEBUG 23180 --- [http-nio-8080-exec-4] com.baoge.dao.TypeMapper.listTypeTop     : ==>  Preparing: select t.id as id,t.name as name ,tb.id as bid,tb.title as title,tb.type_id as type_id from t_type t left join t_blog tb on t.id=tb.type_id
+2020-07-14 00:42:36.480 DEBUG 23180 --- [http-nio-8080-exec-4] com.baoge.dao.TypeMapper.listTypeTop     : ==> Parameters: 
+2020-07-14 00:42:36.481 DEBUG 23180 --- [http-nio-8080-exec-4] com.baoge.dao.TypeMapper.listTypeTop     : <==      Total: 11
+2020-07-14 00:42:36.482 DEBUG 23180 --- [http-nio-8080-exec-4] com.baoge.dao.TagMapper.listTagTop       : ==>  Preparing: select t.id as tid,t.name as tname,b.id as bid,b.title as title from t_tag t left join t_blog_tags bt on t.id= bt.tags_id left join t_blog b on bt.blogs_id = b.id
+2020-07-14 00:42:36.482 DEBUG 23180 --- [http-nio-8080-exec-4] com.baoge.dao.TagMapper.listTagTop       : ==> Parameters: 
+2020-07-14 00:42:36.490 DEBUG 23180 --- [http-nio-8080-exec-4] com.baoge.dao.TagMapper.listTagTop       : <==      Total: 29
+2020-07-14 00:42:36.490  INFO 23180 --- [http-nio-8080-exec-4] com.baoge.aspect.LogAspect               : Result : index
+2020-07-14 00:42:36.889  INFO 23180 --- [http-nio-8080-exec-6] com.baoge.aspect.LogAspect               : Request : {url='http://localhost:8080/footer/newblog', ip='0:0:0:0:0:0:0:1', classMethod='com.baoge.controller.IndexController.newblogs', args=[{}]}
+2020-07-14 00:42:36.889 DEBUG 23180 --- [http-nio-8080-exec-6] com.baoge.dao.BlogMapper.getNewBlog      : ==>  Preparing: select * from myblog.t_blog order by t_blog.update_time desc limit 3;
+2020-07-14 00:42:36.889 DEBUG 23180 --- [http-nio-8080-exec-6] com.baoge.dao.BlogMapper.getNewBlog      : ==> Parameters: 
+2020-07-14 00:42:36.890 DEBUG 23180 --- [http-nio-8080-exec-6] com.baoge.dao.BlogMapper.getNewBlog      : <==      Total: 3
+2020-07-14 00:42:36.890  INFO 23180 --- [http-nio-8080-exec-6] com.baoge.aspect.LogAspect               : Result : _fragments :: newblogList
+2020-07-14 01:02:30.199  INFO 23180 --- [http-nio-8080-exec-10] com.baoge.aspect.LogAspect               : Request : {url='http://localhost:8080/archives', ip='0:0:0:0:0:0:0:1', classMethod='com.baoge.controller.ArchiveShowController.archives', args=[{}]}
+2020-07-14 01:02:30.201 DEBUG 23180 --- [http-nio-8080-exec-10] com.baoge.dao.BlogMapper.finBlogYear     : ==>  Preparing: SELECT DATE_FORMAT(b.update_time,'%Y') as year from t_blog b GROUP by year order by year desc
+2020-07-14 01:02:30.202 DEBUG 23180 --- [http-nio-8080-exec-10] com.baoge.dao.BlogMapper.finBlogYear     : ==> Parameters: 
+2020-07-14 01:02:30.216 DEBUG 23180 --- [http-nio-8080-exec-10] com.baoge.dao.BlogMapper.finBlogYear     : <==      Total: 1
+2020-07-14 01:02:30.217 DEBUG 23180 --- [http-nio-8080-exec-10] com.baoge.dao.BlogMapper.findBlogByYear  : ==>  Preparing: select b.title, b.update_time, b.id, b.flag from t_blog b where DATE_FORMAT(b.update_time, "%Y") = ?
+2020-07-14 01:02:30.217 DEBUG 23180 --- [http-nio-8080-exec-10] com.baoge.dao.BlogMapper.findBlogByYear  : ==> Parameters: 2020(String)
+2020-07-14 01:02:30.218 DEBUG 23180 --- [http-nio-8080-exec-10] com.baoge.dao.BlogMapper.findBlogByYear  : <==      Total: 11
+2020-07-14 01:02:30.219 DEBUG 23180 --- [http-nio-8080-exec-10] com.baoge.dao.BlogMapper.getAllBlog      : ==>  Preparing: select * from myblog.t_blog
+2020-07-14 01:02:30.219 DEBUG 23180 --- [http-nio-8080-exec-10] com.baoge.dao.BlogMapper.getAllBlog      : ==> Parameters: 
+2020-07-14 01:02:30.221 DEBUG 23180 --- [http-nio-8080-exec-10] com.baoge.dao.BlogMapper.getAllBlog      : <==      Total: 11
+2020-07-14 01:02:30.222  INFO 23180 --- [http-nio-8080-exec-10] com.baoge.aspect.LogAspect               : Result : archives
+2020-07-14 01:02:30.609  INFO 23180 --- [http-nio-8080-exec-3] com.baoge.aspect.LogAspect               : Request : {url='http://localhost:8080/footer/newblog', ip='0:0:0:0:0:0:0:1', classMethod='com.baoge.controller.IndexController.newblogs', args=[{}]}
+2020-07-14 01:02:30.610 DEBUG 23180 --- [http-nio-8080-exec-3] com.baoge.dao.BlogMapper.getNewBlog      : ==>  Preparing: select * from myblog.t_blog order by t_blog.update_time desc limit 3;
+2020-07-14 01:02:30.610 DEBUG 23180 --- [http-nio-8080-exec-3] com.baoge.dao.BlogMapper.getNewBlog      : ==> Parameters: 
+2020-07-14 01:02:30.612 DEBUG 23180 --- [http-nio-8080-exec-3] com.baoge.dao.BlogMapper.getNewBlog      : <==      Total: 3
+2020-07-14 01:02:30.612  INFO 23180 --- [http-nio-8080-exec-3] com.baoge.aspect.LogAspect               : Result : _fragments :: newblogList
+2020-07-14 01:02:31.470  INFO 23180 --- [http-nio-8080-exec-6] com.baoge.aspect.LogAspect               : Request : {url='http://localhost:8080/about', ip='0:0:0:0:0:0:0:1', classMethod='com.baoge.controller.AboutShowController.about', args=[]}
+2020-07-14 01:02:31.470  INFO 23180 --- [http-nio-8080-exec-6] com.baoge.aspect.LogAspect               : Result : about
+2020-07-14 01:02:31.792  INFO 23180 --- [http-nio-8080-exec-8] com.baoge.aspect.LogAspect               : Request : {url='http://localhost:8080/footer/newblog', ip='0:0:0:0:0:0:0:1', classMethod='com.baoge.controller.IndexController.newblogs', args=[{}]}
+2020-07-14 01:02:31.793 DEBUG 23180 --- [http-nio-8080-exec-8] com.baoge.dao.BlogMapper.getNewBlog      : ==>  Preparing: select * from myblog.t_blog order by t_blog.update_time desc limit 3;
+2020-07-14 01:02:31.793 DEBUG 23180 --- [http-nio-8080-exec-8] com.baoge.dao.BlogMapper.getNewBlog      : ==> Parameters: 
+2020-07-14 01:02:31.794 DEBUG 23180 --- [http-nio-8080-exec-8] com.baoge.dao.BlogMapper.getNewBlog      : <==      Total: 3
+2020-07-14 01:02:31.794  INFO 23180 --- [http-nio-8080-exec-8] com.baoge.aspect.LogAspect               : Result : _fragments :: newblogList
+2020-07-14 01:02:34.898  INFO 23180 --- [http-nio-8080-exec-5] com.baoge.aspect.LogAspect               : Request : {url='http://localhost:8080/', ip='0:0:0:0:0:0:0:1', classMethod='com.baoge.controller.IndexController.index', args=[{}, 1, {}]}
+2020-07-14 01:02:34.899 DEBUG 23180 --- [http-nio-8080-exec-5] c.b.d.B.getAllFirstPageBlog_COUNT        : ==>  Preparing: SELECT count(0) FROM myblog.t_blog b, myblog.t_type t, myblog.t_user u WHERE b.type_id = t.id AND u.id = b.user_id
+2020-07-14 01:02:34.900 DEBUG 23180 --- [http-nio-8080-exec-5] c.b.d.B.getAllFirstPageBlog_COUNT        : ==> Parameters: 
+2020-07-14 01:02:34.900 DEBUG 23180 --- [http-nio-8080-exec-5] c.b.d.B.getAllFirstPageBlog_COUNT        : <==      Total: 1
+2020-07-14 01:02:34.901 DEBUG 23180 --- [http-nio-8080-exec-5] c.b.dao.BlogMapper.getAllFirstPageBlog   : ==>  Preparing: select b.id as bid,b.title,b.first_picture, b.views, b.comment_count,b.update_time,b.description, t.name , t.id as tid, u.nickname, u.avatar,u.id as uid from myblog.t_blog b, myblog.t_type t,myblog.t_user u where b.type_id = t.id and u.id = b.user_id order by b.update_time desc LIMIT ?
+2020-07-14 01:02:34.901 DEBUG 23180 --- [http-nio-8080-exec-5] c.b.dao.BlogMapper.getAllFirstPageBlog   : ==> Parameters: 8(Integer)
+2020-07-14 01:02:34.902 DEBUG 23180 --- [http-nio-8080-exec-5] c.b.dao.BlogMapper.getAllFirstPageBlog   : <==      Total: 8
+2020-07-14 01:02:34.902 DEBUG 23180 --- [http-nio-8080-exec-5] c.b.dao.BlogMapper.getAllRecommendBlog   : ==>  Preparing: select id,title,recommend ,first_picture from myblog.t_blog where t_blog.recommend = true order by t_blog.update_time desc limit 8;
+2020-07-14 01:02:34.902 DEBUG 23180 --- [http-nio-8080-exec-5] c.b.dao.BlogMapper.getAllRecommendBlog   : ==> Parameters: 
+2020-07-14 01:02:34.903 DEBUG 23180 --- [http-nio-8080-exec-5] c.b.dao.BlogMapper.getAllRecommendBlog   : <==      Total: 8
+2020-07-14 01:02:34.903 DEBUG 23180 --- [http-nio-8080-exec-5] com.baoge.dao.TypeMapper.listTypeTop     : ==>  Preparing: select t.id as id,t.name as name ,tb.id as bid,tb.title as title,tb.type_id as type_id from t_type t left join t_blog tb on t.id=tb.type_id
+2020-07-14 01:02:34.903 DEBUG 23180 --- [http-nio-8080-exec-5] com.baoge.dao.TypeMapper.listTypeTop     : ==> Parameters: 
+2020-07-14 01:02:34.905 DEBUG 23180 --- [http-nio-8080-exec-5] com.baoge.dao.TypeMapper.listTypeTop     : <==      Total: 11
+2020-07-14 01:02:34.905 DEBUG 23180 --- [http-nio-8080-exec-5] com.baoge.dao.TagMapper.listTagTop       : ==>  Preparing: select t.id as tid,t.name as tname,b.id as bid,b.title as title from t_tag t left join t_blog_tags bt on t.id= bt.tags_id left join t_blog b on bt.blogs_id = b.id
+2020-07-14 01:02:34.905 DEBUG 23180 --- [http-nio-8080-exec-5] com.baoge.dao.TagMapper.listTagTop       : ==> Parameters: 
+2020-07-14 01:02:34.906 DEBUG 23180 --- [http-nio-8080-exec-5] com.baoge.dao.TagMapper.listTagTop       : <==      Total: 29
+2020-07-14 01:02:34.906  INFO 23180 --- [http-nio-8080-exec-5] com.baoge.aspect.LogAspect               : Result : index
+2020-07-14 01:02:35.272  INFO 23180 --- [http-nio-8080-exec-2] com.baoge.aspect.LogAspect               : Request : {url='http://localhost:8080/footer/newblog', ip='0:0:0:0:0:0:0:1', classMethod='com.baoge.controller.IndexController.newblogs', args=[{}]}
+2020-07-14 01:02:35.272 DEBUG 23180 --- [http-nio-8080-exec-2] com.baoge.dao.BlogMapper.getNewBlog      : ==>  Preparing: select * from myblog.t_blog order by t_blog.update_time desc limit 3;
+2020-07-14 01:02:35.272 DEBUG 23180 --- [http-nio-8080-exec-2] com.baoge.dao.BlogMapper.getNewBlog      : ==> Parameters: 
+2020-07-14 01:02:35.273 DEBUG 23180 --- [http-nio-8080-exec-2] com.baoge.dao.BlogMapper.getNewBlog      : <==      Total: 3
+2020-07-14 01:02:35.273  INFO 23180 --- [http-nio-8080-exec-2] com.baoge.aspect.LogAspect               : Result : _fragments :: newblogList

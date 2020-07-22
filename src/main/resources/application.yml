@@ -1,0 +1,13 @@
+spring:
+  thymeleaf:
+    mode: HTML
+  profiles:
+    active: dev
+mybatis:
+  type-aliases-package: com.baoge.entity
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+
+comment.avatar: /images/avatar.png

@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoge.dao.BlogMapper">
+    <resultMap id="blogWithTypeName" type="com.baoge.entity.Blog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="flag" column="flag"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="views" column="views"/>
+        <result property="commentCount" column="comment_count;"/>
+        <result property="appreciation" column="appreciation"/>
+        <result property="shareStatement" column="share_statement"/>
+        <result property="commentabled" column="commentabled"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="recommend" column="recommend"/>
+        <result property="published" column="published"/>
+        <result property="description" column="description"/>
+        <result property="typeId" column="type_id"/>
+        <association property="type" javaType="com.baoge.entity.Type">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+    </resultMap>
+    <resultMap id="blogWithTags" type="com.baoge.entity.Blog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="flag" column="flag"/>
+        <result property="views" column="views"/>
+        <result property="commentCount" column="comment_count;"/>
+        <result property="appreciation" column="appreciation"/>
+        <result property="shareStatement" column="share_statement"/>
+        <result property="commentabled" column="commentabled"/>
+        <result property="published" column="published"/>
+        <result property="recommend" column="recommend"/>
+        <result property="description" column="description"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="typeId" column="type_id"/>
+        <result property="userId" column="user_id"/>
+        <association property="user" javaType="com.baoge.entity.User">
+            <id property="id" column="userid"/>
+            <result property="name" column="name"/>
+        </association>
+        <association property="type" javaType="com.baoge.entity.Type">
+            <id property="id" column="tyid"/>
+            <result property="name" column="tname"/>
+        </association>
+        <collection property="tags" ofType="com.baoge.entity.Tag">
+            <id property="id" column="tags"></id>
+            <result property="name" column="name"/>
+        </collection>
+    </resultMap>
+    <select id="getAllBlogWithTypeName" resultMap="blogWithTypeName">
+
+      select b.id,b.title,b.update_time,b.recommend,b.published,b.type_id,t.id,t.name from myblog.t_blog b left outer join
+        myblog.t_type t on b.type_id = t.id order by b.update_time desc
+    </select>
+    <!--搜索文章-->
+    <select id="getSearchBlog" resultMap="blogWithTypeName">
+        <!-- 拼接：<bind name="pattern" value="'%'+title+'%'"/>-->
+        select b.id,b.title,b.content,b.first_picture,b.views,b.comment_count,
+        b.appreciation,b.share_statement,b.update_time,b.create_time,b.recommend,b.published,b.description,
+        t.name
+        from myblog.t_blog b, myblog.t_type t where
+        b.type_id = t.id
+        <if test="title != null and title != ''">
+            and b.title like '%' #{title} '%'
+        </if>
+        <if test="typeId !=null">
+            and b.type_id = #{typeId}
+        </if>
+        <if test="recommend == true">
+            and b.recommend = #{recommend}
+        </if>
+        order by b.update_time desc
+    </select>
+    <!--新增保存文章-->
+    <insert id="saveBlog" parameterType="com.baoge.entity.Blog" useGeneratedKeys="true" keyProperty="id">
+        insert into myblog.t_blog (id,title, content, first_picture, flag,
+        views, comment_count, appreciation, share_statement, commentabled, published,
+        recommend, create_time, update_time, type_id, user_id, description)
+        values (#{id},#{title},#{content},#{firstPicture},#{flag},#{views},#{commentCount},#{appreciation},
+        #{shareStatement},#{commentabled},#{published},#{recommend},#{createTime},
+        #{updateTime},#{typeId},#{userId},#{description})
+
+    </insert>
+    <insert id="saveBlogAndTags" parameterType="com.baoge.entity.Blog">
+
+        insert into myblog.t_blog_tags (blogs_id,tags_id) values
+        <foreach collection="listTag" item="item" index="index" separator=",">
+            (
+            #{id},
+            #{item.id}
+            )
+        </foreach>
+    </insert>
+    <!--查询所有文章-->
+    <select id="getAllBlog" resultType="com.baoge.entity.Blog">
+        select * from myblog.t_blog
+    </select>
+    <!--删除文章-->
+    <delete id="deleteBlog">
+        delete from myblog.t_blog where id = #{id}
+    </delete>
+    <!-- 修改页面查询文章内容-->
+    <select id="getBlogWithContent" resultMap="blogWithTags">
+    select b.*,
+	t.id as tags from
+	myblog.t_blog b
+	LEFT JOIN myblog.t_blog_tags bt ON b.id = bt.blogs_id
+	LEFT JOIN myblog.t_tag t ON bt.tags_id = t.id
+    where  b.id =#{id}
+    </select>
+
+
+    <!--修改博客-->
+    <update id="updateBlog" parameterType="com.baoge.entity.Blog">
+        update myblog.t_blog set
+        title= #{title},content =#{content},first_picture = #{firstPicture},
+        flag = #{flag},appreciation=#{appreciation},share_statement =#{shareStatement},
+        commentabled=#{commentabled},published = #{published},recommend=#{recommend},
+        description= #{description},update_time = #{updateTime},type_id=#{typeId}
+        where id = #{id}
+    </update>
+    <!-- 修改博客的tags -->
+    <update id="deleteBlogTag" parameterType="com.baoge.entity.Tag">
+        delete from myblog.t_blog_tags where blogs_id = #{id}
+    </update>
+
+    <resultMap id="firstPageBlog" type="com.baoge.entity.Blog">
+        <id property="id" column="bid"/>
+        <result property="title" column="title"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="views" column="views"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="description" column="description"/>
+        <result property="recommend" column="recommend"/>
+        <association property="type" javaType="com.baoge.entity.Type">
+            <id property="id" column="tid"></id>
+            <result property="name" column="name"></result>
+        </association>
+        <association property="user" javaType="com.baoge.entity.User">
+            <id property="id" column="uid"></id>
+            <result property="nickname" column="nickname"></result>
+            <result property="avatar" column="avatar"></result>
+            <result property="username" column="username"></result>
+        </association>
+    </resultMap>
+    <!--查询最新的文章-->
+    <select id="getAllFirstPageBlog" resultMap="firstPageBlog">
+        select b.id as bid,b.title,b.first_picture, b.views, b.comment_count,b.update_time,b.description,
+        t.name , t.id as tid,
+        u.nickname, u.avatar,u.id as uid
+        from myblog.t_blog b, myblog.t_type t,myblog.t_user u
+        where b.type_id = t.id and  u.id = b.user_id order by b.update_time desc
+    </select>
+    <resultMap id="recommendBlog" type="com.baoge.entity.Blog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="recommend" column="recommend"/>
+        <result property="firstPicture" column="first_picture"/>
+    </resultMap>
+    <!--查询推荐的文章-->
+    <select id="getAllRecommendBlog" resultMap="recommendBlog">
+           select id,title,recommend ,first_picture
+           from myblog.t_blog
+           where t_blog.recommend = true
+           order by t_blog.update_time desc limit 8;
+       </select>
+
+    <resultMap id="blogSearchbyName" type="com.baoge.entity.Blog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="flag" column="flag"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="views" column="views"/>
+        <result property="commentCount" column="comment_count;"/>
+        <result property="appreciation" column="appreciation"/>
+        <result property="shareStatement" column="share_statement"/>
+        <result property="commentabled" column="commentabled"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="recommend" column="recommend"/>
+        <result property="published" column="published"/>
+        <result property="description" column="description"/>
+        <result property="typeId" column="type_id"/>
+        <result property="userId" column="user_id"/>
+        <association property="type" javaType="com.baoge.entity.Type">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+        <association property="user" javaType="com.baoge.entity.User">
+            <id property="id" column="id"></id>
+            <result property="nickname" column="nickname"></result>
+            <result property="avatar" column="avatar"></result>
+        </association>
+    </resultMap>
+    <!--首页查询blog-->
+    <select id="getSearchBlogbyName" resultMap="blogSearchbyName">
+
+        select b.id,b.title,b.content,b.first_picture,b.views,b.comment_count,
+        b.appreciation,b.share_statement,b.update_time,b.create_time,b.recommend,b.published,b.description,
+        t.name, u.nickname, u.avatar
+        from t_blog b left join t_type t on b.type_id=t.id
+             left join t_user u on b.user_id =u.id
+        where ( b.title like  '%' #{query} '%' or b.content like '%' #{query} '%')
+        order by b.update_time desc
+    </select>
+
+    <resultMap id="blogAll" type="com.baoge.entity.Blog">
+        <id property="id" column="bid"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="flag" column="flag"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="views" column="views"/>
+        <result property="commentCount" column="comment_count;"/>
+        <result property="appreciation" column="appreciation"/>
+        <result property="shareStatement" column="share_statement"/>
+        <result property="commentabled" column="commentabled"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="recommend" column="recommend"/>
+        <result property="published" column="published"/>
+        <result property="description" column="description"/>
+        <result property="typeId" column="type_id"/>
+        <result property="userId" column="user_id"/>
+        <association property="type" javaType="com.baoge.entity.Type">
+            <id property="id" column="tyid"/>
+            <result property="name" column="tyname"/>
+        </association>
+        <association property="user" javaType="com.baoge.entity.User">
+            <id property="id" column="uid"></id>
+            <result property="nickname" column="nickname"></result>
+            <result property="avatar" column="avatar"></result>
+        </association>
+        <collection property="tags" ofType="com.baoge.entity.Tag">
+            <id property="id" column="taid"></id>
+            <result property="name" column="taname"></result>
+        </collection>
+    </resultMap>
+    <!--根据id查询blog-->
+    <select id="getDetailedBlog" resultMap="blogAll">
+        select b.id as bid,b.first_picture,b.flag,b.title,b.content,b.views,b.comment_count,
+        b.update_time,b.commentabled,b.share_statement,b.appreciation,
+        u.nickname,u.avatar,
+        ty.name as tyname,
+        ta.id as taid,ta.name as taname
+        from t_blog b left join t_type ty on b.type_id=ty.id
+             left join t_user u on b.user_id =u.id
+             left join t_blog_tags bt on b.id=bt.blogs_id
+             left join t_tag ta on bt.tags_id= ta.id
+             where b.id = #{id}
+    </select>
+
+    <!--查询出文章评论数量并更新-->
+    <update id="getCommentCountById" parameterType="com.baoge.entity.Blog">
+        update myblog.t_blog b set b.comment_count = (
+        select count(*) from myblog.t_comment c where c.blog_id = #{id} and b.id = #{id}
+        ) WHERE b.id = #{id}
+    </update>
+
+    <!--文章访问自增-->
+    <update id="updateViews" parameterType="com.baoge.entity.Blog">
+        update myblog.t_blog b set b.views = b.views+1 where b.id = #{id}
+    </update>
+    <!--bolg访问总数-->
+    <select id="getBlogViewTotal" resultType="com.baoge.entity.Blog">
+        select sum(views) from myblog.t_blog
+    </select>
+
+    <!--分类页面查询-->
+    <select id="getByTypeId" resultMap="firstPageBlog">
+        select b.id as bid,b.title,b.first_picture, b.views, b.comment_count, b.update_time, b.description,
+        t.name ,
+        u.nickname, u.avatar
+        from myblog.t_blog b, myblog.t_type t,myblog.t_user u
+        where b.type_id = t.id and u.id = b.user_id and b.type_id = #{typeId} order by b.update_time desc
+    </select>
+    <resultMap id="BlogByTag" type="com.baoge.entity.Blog">
+
+    </resultMap>
+    <select id="getByTag" resultMap="blogAll">
+
+         select b.id as bid,b.title,b.first_picture, b.views, b.comment_count, b.update_time, b.description,
+         ty.name as tyname,
+         u.nickname,u.avatar,
+         ta.name as taname
+         from t_blog b left join t_type ty on b.type_id=ty.id
+             left join t_user u on b.user_id =u.id
+             left join t_blog_tags bt on b.id=bt.blogs_id
+             left join t_tag ta on bt.tags_id= ta.id
+             where ta.id = #{TagId}
+    </select>
+
+
+    <select id="finBlogYear" resultType="String">
+        SELECT DATE_FORMAT(b.update_time,'%Y') as year from
+            t_blog b
+            GROUP by year
+            order by year desc
+    </select>
+
+    <select id="findBlogByYear" resultType="com.baoge.entity.Blog">
+        select b.title, b.update_time, b.id, b.flag
+        from t_blog b
+        where DATE_FORMAT(b.update_time, "%Y") = #{year}
+    </select>
+
+    <!--最新文章-->
+    <select id="getNewBlog" resultMap="firstPageBlog">
+    select * from myblog.t_blog order by t_blog.update_time desc limit 3;
+    </select>
+</mapper>

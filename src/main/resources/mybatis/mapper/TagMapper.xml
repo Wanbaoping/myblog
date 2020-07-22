@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoge.dao.TagMapper">
+
+    <!--新增保存分类-->
+    <insert id="saveTag" parameterType="com.baoge.entity.Tag">
+        insert into myblog.t_Tag values (#{id},#{name});
+    </insert>
+
+    <!--根据id查询分类-->
+    <select id="getTag" resultType="com.baoge.entity.Tag">
+        select id,name from myblog.t_Tag where id = #{id}
+    </select>
+
+    <!--查询所有分类-->
+    <select id="getAllTag" resultType="com.baoge.entity.Tag">
+        select * from myblog.t_Tag
+    </select>
+
+    <!--根据分类名称来查询-->
+    <select id="getTagByName" resultType="com.baoge.entity.Tag">
+        select * from myblog.t_Tag where name = #{name}
+    </select>
+
+    <!--编辑修改分类-->
+    <update id="updateTag" parameterType="com.baoge.entity.Tag">
+        update myblog.t_Tag set name = #{name} where id = #{id}
+    </update>
+
+    <!--删除分类-->
+    <delete id="deleteTag">
+        delete from myblog.t_Tag where id = #{id}
+    </delete>
+    <!-- 查找多个类-->
+    <select id="getAllTagById" resultType="com.baoge.entity.Tag">
+        select id,name from myblog.t_Tag where id = #{tagId}
+    </select>
+
+    <resultMap id="listTagTop" type="com.baoge.entity.Tag">
+        <id property="id" column="tid"></id>
+        <result property="name" column="tname"></result>
+        <collection property="blogs" ofType="com.baoge.entity.Blog">
+            <id property="id" column="bid"></id>
+            <result property="title" column="title"></result>
+        </collection>
+    </resultMap>
+    <select id="listTagTop" resultMap="listTagTop">
+        select t.id as tid,t.name as tname,b.id as bid,b.title as title
+        from t_tag t left join t_blog_tags bt on t.id= bt.tags_id
+         left join  t_blog b on bt.blogs_id = b.id
+    </select>
+
+</mapper>
