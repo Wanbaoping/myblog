@@ -22,7 +22,8 @@ public class LogAspect {
 
     //定义切面，申明log()是一个切面
     @Pointcut("execution(* com.baoge.controller.*.*(..))")
-    public void log() {}
+    public void log() {
+    }
 
     //在切面之前执行
     @Before("log()")
@@ -47,7 +48,7 @@ public class LogAspect {
     }
 
     //返回之后拦截
-    @AfterReturning(returning = "result",pointcut = "log()")
+    @AfterReturning(returning = "result", pointcut = "log()")
     public void doAfterRuturn(Object result) {
         logger.info("Result : {}", result);
     }

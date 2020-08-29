@@ -46,7 +46,7 @@ public interface BlogService {
 
     List<Blog> getByTag(Long tagId);
 
-    Map<String,List<Blog>> archiveBlog();
+    Map<String, List<Blog>> archiveBlog();
 
     int countBlog();
 

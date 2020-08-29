@@ -26,7 +26,6 @@ public class Blog {
     private Date updateTime;
 
 
-
     private Type type;
     private Long typeId;
 
@@ -222,9 +221,10 @@ public class Blog {
     }
 
 
-    public void init(){
-        this.tagIds=this.tagsToIds(this.getTags());
+    public void init() {
+        this.tagIds = this.tagsToIds(this.getTags());
     }
+
     private String tagsToIds(List<Tag> tags) {
         if (!tags.isEmpty()) {
 

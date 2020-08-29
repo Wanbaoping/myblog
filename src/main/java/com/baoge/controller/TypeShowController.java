@@ -27,7 +27,7 @@ public class TypeShowController {
 
     //    分页查询分类
     @GetMapping("/types/{id}")
-    public String types(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum, @PathVariable Long id, Model model) {
+    public String types(@RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum, @PathVariable Long id, Model model) {
         List<Type> types = typeService.listTypeTop();
         //System.out.println("types:"+types);
     /*    for (Type type : types){

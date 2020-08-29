@@ -13,7 +13,7 @@ public interface TypeService {
 
     Type getTypeByName(String name);
 
-    int updateType(long id,Type type);
+    int updateType(long id, Type type);
 
     void deleteType(long id);
 

@@ -314,7 +314,7 @@
     </select>
 
     <!--最新文章-->
-    <select id="getNewBlog" resultMap="firstPageBlog">
+    <select id="getNewBlog" resultType="com.baoge.entity.Blog">
     select * from myblog.t_blog order by t_blog.update_time desc limit 3;
     </select>
 </mapper>

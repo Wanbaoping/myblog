@@ -57,7 +57,7 @@ public class TagServiceImpl implements TagService {
         if (!"".equals(tagIds) && tagIds != null) {
             String[] idarray = tagIds.split(",");
             for (int i = 0; i < idarray.length; i++) {
-               list.add(TagMapper.getAllTagById(idarray[i]));
+                list.add(TagMapper.getAllTagById(idarray[i]));
             }
             return list;
         }

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Mapper
 @Repository
 public interface CommentMapper {
@@ -17,7 +18,7 @@ public interface CommentMapper {
     List<Comment> findByBlogIdParentIdNotNull(@Param("blogId") Long blogId, @Param("id") Long id);
 
     //查询二级回复
-    List<Comment> findByBlogIdAndReplayId(@Param("blogId") Long blogId,@Param("childId") Long childId);
+    List<Comment> findByBlogIdAndReplayId(@Param("blogId") Long blogId, @Param("childId") Long childId);
 
     //查询父级对象
 //    Comment findByParentCommentId(Long parentCommentId);

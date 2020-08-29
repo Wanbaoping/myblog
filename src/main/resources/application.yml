@@ -11,3 +11,7 @@ mybatis:
 
 
 comment.avatar: /images/avatar.png
+server:
+  servlet:
+    session:
+      timeout: 100m

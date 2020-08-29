@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class TypeServiceImpl implements TypeService {
     @Autowired
@@ -34,7 +35,7 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public int updateType(long id,Type type) {
+    public int updateType(long id, Type type) {
         Type t = typeMapper.getType(id);
         if (t == null) {
             throw new NotFoundException("不存在该类型");

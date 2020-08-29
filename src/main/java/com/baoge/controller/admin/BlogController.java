@@ -56,17 +56,19 @@ public class BlogController {
         model.addAttribute("blog", new Blog());
         return "admin/blogs-input";
     }
+
     private void setTypeAndTag(Model model) {
         model.addAttribute("types", typeService.getAllType());
         model.addAttribute("tags", tagService.getAllTag());
     }
+
     //跳转来到博客更改页面
     @GetMapping("/blogs/{id}/input")
     public String editInput(@PathVariable Long id, Model model) {
         setTypeAndTag(model);
         Blog blog = blogService.getBlogWithContent(id);
         blog.init();
-        model.addAttribute("blog",blog);
+        model.addAttribute("blog", blog);
         System.out.println(blog);
         return "admin/blogs-input";
     }
@@ -85,8 +87,8 @@ public class BlogController {
         //设置blog的tags
         blog.setTags(tagService.listTag(blog.getTagIds()));
         if (blog.getId() != null) {
-            int a= blogService.updateBlog(blog);
-            int c=blogService.deleteBlogTag(blog.getId());
+            int a = blogService.updateBlog(blog);
+            int c = blogService.deleteBlogTag(blog.getId());
             int i = blogService.addBlogIdAndTags(blog.getId(),/*tagService.listTag(blog.getTagIds())*/blog.getTags());
             if (i == 0) {
                 attributes.addFlashAttribute("message", "新增失败");
@@ -112,10 +114,11 @@ public class BlogController {
                 attributes.addFlashAttribute("message", "新增成功");
             }
         }
-            return "redirect:/admin/blogs";
-        }
+        return "redirect:/admin/blogs";
+    }
+
     @GetMapping("/blogs/{id}/delete")
-    public String delete(@PathVariable Long id,RedirectAttributes attributes) {
+    public String delete(@PathVariable Long id, RedirectAttributes attributes) {
         blogService.deleteBlogTag(id);
         blogService.deleteBlog(id);
         attributes.addFlashAttribute("message", "删除成功");

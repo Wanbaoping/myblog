@@ -29,13 +29,13 @@ public class TagShowController {
     private BlogService blogService;
 
     @GetMapping("/tags/{id}")
-    public String tags(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,@PathVariable Long id, Model model) {
+    public String tags(@RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum, @PathVariable Long id, Model model) {
         List<Tag> tags = tagService.listTagTop();
         if (id == -1) {
-           id = tags.get(0).getId();
+            id = tags.get(0).getId();
         }
         model.addAttribute("tags", tags);
-        PageHelper.startPage(pageNum,1000);
+        PageHelper.startPage(pageNum, 1000);
         List<Blog> blogs = blogService.getByTag(id);
 
         PageInfo<Blog> pageInfo = new PageInfo<>(blogs);

@@ -49,6 +49,7 @@ public class LoginController {
         if (user != null) {
             user.setPassword(null);
             session.setAttribute("user", user);
+            System.out.println("session时间" + session.getServletContext().getSessionTimeout());
             return "admin/index";
         } else {
             attributes.addFlashAttribute("message", "用户名和密码错误");

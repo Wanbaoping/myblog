@@ -51,10 +51,10 @@ public class TagController {
 
 
     @PostMapping("/tags")
-    public String post(@Valid Tag tag,BindingResult result, RedirectAttributes attributes) {
+    public String post(@Valid Tag tag, BindingResult result, RedirectAttributes attributes) {
         Tag tag1 = tagService.getTagByName(tag.getName());
         if (tag1 != null) {
-            result.rejectValue("name","nameError","不能添加重复的分类");
+            result.rejectValue("name", "nameError", "不能添加重复的分类");
         }
         if (result.hasErrors()) {
             return "admin/tags-input";
@@ -70,16 +70,16 @@ public class TagController {
 
 
     @PostMapping("/tags/{id}")
-    public String editPost(@Valid Tag tag, BindingResult result,@PathVariable Long id, RedirectAttributes attributes) {
+    public String editPost(@Valid Tag tag, BindingResult result, @PathVariable Long id, RedirectAttributes attributes) {
         Tag tag1 = tagService.getTagByName(tag.getName());
         if (tag1 != null) {
-            result.rejectValue("name","nameError","不能添加重复的分类");
+            result.rejectValue("name", "nameError", "不能添加重复的分类");
         }
         if (result.hasErrors()) {
             return "admin/tags-input";
         }
-        int t = tagService.updateTag(id,tag);
-        if (t == 0 ) {
+        int t = tagService.updateTag(id, tag);
+        if (t == 0) {
             attributes.addFlashAttribute("message", "更新失败");
         } else {
             attributes.addFlashAttribute("message", "更新成功");
@@ -88,7 +88,7 @@ public class TagController {
     }
 
     @GetMapping("/tags/{id}/delete")
-    public String delete(@PathVariable Long id,RedirectAttributes attributes) {
+    public String delete(@PathVariable Long id, RedirectAttributes attributes) {
         tagService.deleteTag(id);
         attributes.addFlashAttribute("message", "删除成功");
         return "redirect:/admin/tags";

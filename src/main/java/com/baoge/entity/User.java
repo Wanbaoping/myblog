@@ -1,4 +1,5 @@
 package com.baoge.entity;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,7 @@ public class User {
     private Date createTime;
     private Date updateTime;
 
-    private List<Blog>blogs=new ArrayList<>();
+    private List<Blog> blogs = new ArrayList<>();
 
     public User() {
     }

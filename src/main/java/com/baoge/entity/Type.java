@@ -13,7 +13,7 @@ public class Type {
     @NotBlank(message = "分类名称不能为空")
     private String name;
 
-    private List<Blog> blogs= new ArrayList<Blog>();
+    private List<Blog> blogs = new ArrayList<Blog>();
 
     public Type() {
     }

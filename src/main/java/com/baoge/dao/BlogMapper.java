@@ -15,9 +15,9 @@ public interface BlogMapper {
 
     List<Blog> getAllBlog();
 
-    int  saveBlog(Blog blog);
+    int saveBlog(Blog blog);
 
-    int  updateBlog(Blog blog);
+    int updateBlog(Blog blog);
 
     void deleteBlog(Long id);
 
@@ -38,8 +38,10 @@ public interface BlogMapper {
     List<Blog> getSearchBlogbyName(String query);
 
     Blog getDetailedBlog(Long id);
+
     //统计评论总数
     int getCommentCountById(Long blogId);
+
     //统计访问总数
     Integer getBlogViewTotal();
 

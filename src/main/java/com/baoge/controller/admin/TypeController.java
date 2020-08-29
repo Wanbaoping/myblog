@@ -45,7 +45,7 @@ public class TypeController {
     public String post(@Valid Type type, BindingResult result, RedirectAttributes attributes) {
         Type type1 = typeService.getTypeByName(type.getName());
         if (type1 != null) {
-            result.rejectValue("name","nameError","不能添加重复的分类");
+            result.rejectValue("name", "nameError", "不能添加重复的分类");
         }
         if (result.hasErrors()) {
             return "admin/types-input";
@@ -76,8 +76,8 @@ public class TypeController {
         if (result.hasErrors()) {
             return "admin/types-input";
         }
-       // String name = request.getParameter("name");
-        int t = typeService.updateType(id,type);
+        // String name = request.getParameter("name");
+        int t = typeService.updateType(id, type);
         if (t == 0) {
             attributes.addFlashAttribute("message", "编辑失败");
         } else {

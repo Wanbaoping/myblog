@@ -46,7 +46,7 @@ public class CommentController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             comment.setAvatar(user.getAvatar());
-             comment.setAdminComment(true);
+            comment.setAdminComment(true);
         } else {
             //设置头像
             comment.setAvatar(avatar);
@@ -62,8 +62,8 @@ public class CommentController {
 
     //    删除评论
     @GetMapping("/comment/{blogId}/{id}/delete")
-    public String delete(@PathVariable Long blogId, @PathVariable Long id, Comment comment, RedirectAttributes attributes, Model model){
-        commentService.deleteComment(comment,id);
+    public String delete(@PathVariable Long blogId, @PathVariable Long id, Comment comment, RedirectAttributes attributes, Model model) {
+        commentService.deleteComment(comment, id);
         Blog detailedBlog = blogService.getDetailedBlog(blogId);
         List<Comment> comments = commentService.listCommentByBlogId(blogId);
         model.addAttribute("blog", detailedBlog);

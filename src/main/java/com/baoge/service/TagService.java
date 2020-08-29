@@ -14,7 +14,7 @@ public interface TagService {
 
     Tag getTagByName(String name);
 
-    int updateTag(long id,Tag Tag);
+    int updateTag(long id, Tag Tag);
 
     void deleteTag(long id);
 
