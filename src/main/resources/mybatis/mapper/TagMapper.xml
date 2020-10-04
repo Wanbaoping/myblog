@@ -4,36 +4,36 @@
 
     <!--新增保存分类-->
     <insert id="saveTag" parameterType="com.baoge.entity.Tag">
-        insert into myblog.t_Tag values (#{id},#{name});
+        insert into myblog.t_tag values (#{id},#{name});
     </insert>
 
     <!--根据id查询分类-->
     <select id="getTag" resultType="com.baoge.entity.Tag">
-        select id,name from myblog.t_Tag where id = #{id}
+        select id,name from myblog.t_tag where id = #{id}
     </select>
 
     <!--查询所有分类-->
     <select id="getAllTag" resultType="com.baoge.entity.Tag">
-        select * from myblog.t_Tag
+        select * from myblog.t_tag
     </select>
 
     <!--根据分类名称来查询-->
     <select id="getTagByName" resultType="com.baoge.entity.Tag">
-        select * from myblog.t_Tag where name = #{name}
+        select * from myblog.t_tag where name = #{name}
     </select>
 
     <!--编辑修改分类-->
     <update id="updateTag" parameterType="com.baoge.entity.Tag">
-        update myblog.t_Tag set name = #{name} where id = #{id}
+        update myblog.t_tag set name = #{name} where id = #{id}
     </update>
 
     <!--删除分类-->
     <delete id="deleteTag">
-        delete from myblog.t_Tag where id = #{id}
+        delete from myblog.t_tag where id = #{id}
     </delete>
     <!-- 查找多个类-->
     <select id="getAllTagById" resultType="com.baoge.entity.Tag">
-        select id,name from myblog.t_Tag where id = #{tagId}
+        select id,name from myblog.t_tag where id = #{tagId}
     </select>
 
     <resultMap id="listTagTop" type="com.baoge.entity.Tag">
